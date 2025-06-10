@@ -27,15 +27,3 @@ if __name__ == '__main__':
     converted_orders_df = orders_df.selectExpr("CAST(key as string) AS key","CAST(value as string) AS value","topic","partition","offset","timestamp","timestampType")
 
     print(converted_orders_df.head(10))
-
-    converted_orders_df \
-    .writeStream \
-    .queryName("ingestionquery") \
-    .format("delta") \
-    .outputMode("append") \
-    .option("checkpointLocation","checkpointdir301") \
-    .toTable("orderstablenew301")
-
-    spark.sql("select * from orderstablenew301").show()
-
-
